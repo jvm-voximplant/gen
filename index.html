@@ -234,33 +234,7 @@
   .footer-bottom p { font-size: 12px; }
   .footer-phone { color: var(--green-accent); font-weight: 600; font-size: 14px; }
 
-  /* WEBCHAT BUTTON */
-  #webchat-btn {
-    position: fixed; bottom: 28px; right: 28px; z-index: 999;
-    width: 60px; height: 60px; border-radius: 50%;
-    background: var(--green-dark); border: none; cursor: pointer;
-    box-shadow: 0 4px 20px rgba(15,110,86,0.45);
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-  }
-  #webchat-btn:hover { background: var(--green-mid); transform: scale(1.07); }
-  #webchat-btn svg { width: 28px; height: 28px; fill: white; }
-  #webchat-badge {
-    position: absolute; top: -4px; right: -4px;
-    width: 18px; height: 18px; background: var(--orange);
-    border-radius: 50%; border: 2px solid white;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; font-weight: 700; color: white;
-  }
-  .webchat-tooltip {
-    position: fixed; bottom: 98px; right: 28px; z-index: 999;
-    background: var(--gray-dark); color: white;
-    padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
-    white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-  }
-  #webchat-btn:hover + .webchat-tooltip,
-  .webchat-tooltip:hover { opacity: 1; }
+
 
   /* RESPONSIVE */
   @media (max-width: 768px) {
@@ -598,33 +572,43 @@
   </div>
 </footer>
 
-<!-- WEBCHAT BUTTON (Voximplant Kit - pendiente integración) -->
-<button id="webchat-btn" onclick="initWebChat()" title="Chatea con un asesor">
-  <div id="webchat-badge">1</div>
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-  </svg>
-</button>
-<div class="webchat-tooltip">💬 Chatea con un asesor</div>
-
+<!-- VOXIMPLANT KIT WEBCHAT -->
 <script>
-  function initWebChat() {
-    // ── Integración Voximplant Kit ──────────────────────────────
-    // Aquí va el código de inicialización del widget de VoxImplant Kit
-    // Ejemplo:
-    // VoxKitWidget.init({ accountId: 'YOUR_ACCOUNT_ID', ... });
-    // VoxKitWidget.open();
-    // ────────────────────────────────────────────────────────────
-    console.log('[WebChat] Iniciando Voximplant Kit widget...');
-    alert('WebChat: Aquí se inicializará el widget de Voximplant Kit.');
-  }
-
-  document.getElementById('webchat-btn').addEventListener('mouseenter', function() {
-    document.querySelector('.webchat-tooltip').style.opacity = '1';
-  });
-  document.getElementById('webchat-btn').addEventListener('mouseleave', function() {
-    document.querySelector('.webchat-tooltip').style.opacity = '0';
-  });
+  window.VoxKitWidgetSettings = {
+    host: 'kit-im-us.voximplant.com',
+    channel_uuid: 'bea8f206-b51b-4b80-a29a-e6e19ad877a9',
+    token: '3e61571f504cc83bf1a1b6a6161bd0e7',
+    client_data: {
+      client_id: '',
+      client_phone: '',
+      client_avatar: '',
+      client_display_name: '',
+      client_email: '',
+      client_language: 'es'
+    }
+  };
+</script>
+<script>
+  var l = function() {
+    var t = function() {
+      "object" == typeof VoxKitWidget &&
+      "object" == typeof VoxKitWidgetSettings &&
+      VoxKitWidget.init(VoxKitWidgetSettings)
+    },
+    e = document.createElement("script");
+    e.type = "text/javascript";
+    e.async = !0;
+    e.src = "https://kit.voximplant.com/static/widgets/web-chat.js?" + (new Date).valueOf();
+    e.readyState
+      ? e.onreadystatechange = function() {
+          "loaded" !== e.readyState && "complete" !== e.readyState ||
+          (e.onreadystatechange = null, t())
+        }
+      : e.onload = function() { t() };
+    var a = document.getElementsByTagName("script")[0];
+    a.parentNode.insertBefore(e, a)
+  };
+  window.attachEvent ? window.attachEvent("onload", l) : window.addEventListener("load", l, !1);
 </script>
 
 </body>
