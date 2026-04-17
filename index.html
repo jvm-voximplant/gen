@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PASA / GEN – Soluciones Ambientales</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --green-dark: #0F6E56;
+    --green-mid: #1D9E75;
+    --green-light: #E1F5EE;
+    --green-accent: #5DCAA5;
+    --gray-dark: #2C2C2A;
+    --gray-mid: #5F5E5A;
+    --gray-light: #F1EFE8;
+    --white: #ffffff;
+    --orange: #D85A30;
+  }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--gray-dark); background: var(--white); }
+
+  /* NAV */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid #d0e8e0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 72px;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 1px 8px rgba(15,110,86,0.07);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo-icon {
+    width: 44px; height: 44px; background: var(--green-dark); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-logo-icon svg { width: 26px; height: 26px; fill: white; }
+  .nav-brand { display: flex; flex-direction: column; line-height: 1.1; }
+  .nav-brand span:first-child { font-size: 18px; font-weight: 700; color: var(--green-dark); letter-spacing: 1px; }
+  .nav-brand span:last-child { font-size: 11px; color: var(--gray-mid); letter-spacing: 0.5px; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--gray-mid); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--green-dark); }
+  .nav-cta {
+    background: var(--green-dark); color: white; border: none;
+    padding: 10px 22px; border-radius: 6px; font-size: 14px; font-weight: 600;
+    cursor: pointer; text-decoration: none; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--green-mid); }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--green-dark) 0%, #085041 60%, #0d7a60 100%);
+    color: white; padding: 80px 48px;
+    display: flex; align-items: center; justify-content: space-between; gap: 48px;
+    min-height: 480px;
+  }
+  .hero-content { max-width: 560px; }
+  .hero-badge {
+    display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+    color: #9FE1CB; font-size: 12px; font-weight: 600; letter-spacing: 1px;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 20px; text-transform: uppercase;
+  }
+  .hero h1 { font-size: 42px; font-weight: 700; line-height: 1.2; margin-bottom: 18px; }
+  .hero h1 span { color: var(--green-accent); }
+  .hero p { font-size: 17px; color: rgba(255,255,255,0.82); line-height: 1.7; margin-bottom: 32px; max-width: 480px; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: white; color: var(--green-dark); border: none;
+    padding: 13px 28px; border-radius: 6px; font-size: 15px; font-weight: 700;
+    cursor: pointer; text-decoration: none; transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--green-light); }
+  .btn-outline {
+    background: transparent; color: white; border: 2px solid rgba(255,255,255,0.5);
+    padding: 13px 28px; border-radius: 6px; font-size: 15px; font-weight: 600;
+    cursor: pointer; text-decoration: none; transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.08); }
+  .hero-visual {
+    display: flex; flex-wrap: wrap; gap: 14px; max-width: 300px;
+    align-content: flex-start;
+  }
+  .hero-stat {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px; padding: 18px 22px; min-width: 130px; flex: 1;
+  }
+  .hero-stat .num { font-size: 28px; font-weight: 700; color: var(--green-accent); }
+  .hero-stat .lbl { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px; }
+
+  /* BRANDS */
+  .brands {
+    background: var(--gray-light); padding: 28px 48px;
+    display: flex; align-items: center; gap: 40px; flex-wrap: wrap;
+    border-bottom: 1px solid #d9d7cf;
+  }
+  .brands-label { font-size: 13px; color: var(--gray-mid); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+  .brand-pill {
+    background: white; border: 1px solid #c8c5bc; border-radius: 20px;
+    padding: 7px 20px; font-size: 14px; font-weight: 700;
+    color: var(--green-dark); letter-spacing: 0.5px;
+  }
+
+  /* SERVICES */
+  .section { padding: 72px 48px; }
+  .section-header { text-align: center; margin-bottom: 48px; }
+  .section-tag { font-size: 12px; font-weight: 700; color: var(--green-mid); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .section h2 { font-size: 32px; font-weight: 700; color: var(--gray-dark); }
+  .section h2 span { color: var(--green-dark); }
+  .section-sub { font-size: 16px; color: var(--gray-mid); margin-top: 10px; max-width: 580px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px;
+  }
+  .service-card {
+    background: var(--white); border: 1px solid #d9e8e2;
+    border-radius: 12px; padding: 24px 20px; text-align: center;
+    transition: all 0.2s; cursor: pointer;
+  }
+  .service-card:hover {
+    border-color: var(--green-mid); box-shadow: 0 4px 20px rgba(15,110,86,0.1);
+    transform: translateY(-2px);
+  }
+  .service-icon {
+    width: 52px; height: 52px; background: var(--green-light);
+    border-radius: 50%; margin: 0 auto 14px; display: flex;
+    align-items: center; justify-content: center;
+  }
+  .service-icon svg { width: 24px; height: 24px; stroke: var(--green-dark); fill: none; stroke-width: 2; }
+  .service-card h3 { font-size: 14px; font-weight: 600; color: var(--gray-dark); line-height: 1.4; }
+
+  /* MARCAS HIGHLIGHT */
+  .marcas-section { background: var(--green-light); }
+  .marcas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 860px; margin: 0 auto; }
+  .marca-card {
+    background: white; border-radius: 14px; padding: 36px 32px;
+    border: 1px solid #b8ddd0; position: relative; overflow: hidden;
+  }
+  .marca-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: var(--green-dark);
+  }
+  .marca-badge {
+    display: inline-block; background: var(--green-dark); color: white;
+    font-size: 20px; font-weight: 800; padding: 6px 18px; border-radius: 6px;
+    margin-bottom: 16px; letter-spacing: 1px;
+  }
+  .marca-card h3 { font-size: 20px; font-weight: 700; color: var(--gray-dark); margin-bottom: 10px; }
+  .marca-card p { font-size: 14px; color: var(--gray-mid); line-height: 1.7; margin-bottom: 20px; }
+  .marca-link {
+    color: var(--green-dark); font-size: 14px; font-weight: 700;
+    text-decoration: none; border-bottom: 2px solid var(--green-accent);
+    padding-bottom: 2px;
+  }
+
+  /* STATS */
+  .stats-section { background: var(--green-dark); color: white; padding: 64px 48px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; text-align: center; }
+  .stat-item .big { font-size: 42px; font-weight: 800; color: var(--green-accent); }
+  .stat-item .desc { font-size: 14px; color: rgba(255,255,255,0.72); margin-top: 6px; }
+
+  /* APP */
+  .app-section { background: var(--gray-dark); color: white; padding: 64px 48px; display: flex; align-items: center; justify-content: center; gap: 64px; flex-wrap: wrap; }
+  .app-content { max-width: 480px; }
+  .app-content h2 { font-size: 28px; font-weight: 700; margin-bottom: 14px; }
+  .app-content h2 span { color: var(--green-accent); }
+  .app-content p { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.7; margin-bottom: 28px; }
+  .app-features { list-style: none; margin-bottom: 28px; }
+  .app-features li { padding: 6px 0; font-size: 14px; color: rgba(255,255,255,0.8); }
+  .app-features li::before { content: '✓ '; color: var(--green-accent); font-weight: 700; }
+  .app-badges { display: flex; gap: 14px; flex-wrap: wrap; }
+  .app-badge {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25);
+    color: white; padding: 10px 22px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .app-badge:hover { background: rgba(255,255,255,0.18); }
+  .app-phone {
+    width: 180px; height: 340px; background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.15); border-radius: 28px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .app-phone-inner { text-align: center; }
+  .app-phone-inner .app-logo { font-size: 36px; margin-bottom: 8px; }
+  .app-phone-inner span { font-size: 13px; color: var(--green-accent); font-weight: 700; }
+
+  /* CONTACT */
+  .contact-section { padding: 72px 48px; background: var(--gray-light); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 900px; margin: 0 auto; }
+  .contact-info h2 { font-size: 26px; font-weight: 700; color: var(--gray-dark); margin-bottom: 10px; }
+  .contact-info p { font-size: 15px; color: var(--gray-mid); line-height: 1.7; margin-bottom: 24px; }
+  .contact-item { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px; }
+  .contact-item-icon {
+    width: 40px; height: 40px; background: var(--green-light); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .contact-item-icon svg { width: 18px; height: 18px; stroke: var(--green-dark); fill: none; stroke-width: 2; }
+  .contact-item-text p:first-child { font-size: 13px; color: var(--gray-mid); }
+  .contact-item-text p:last-child { font-size: 14px; font-weight: 600; color: var(--gray-dark); }
+  .contact-form { background: white; border-radius: 14px; padding: 32px; border: 1px solid #d3d1c7; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--gray-mid); margin-bottom: 6px; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: 10px 14px; border: 1px solid #d3d1c7; border-radius: 6px;
+    font-size: 14px; color: var(--gray-dark); font-family: inherit;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    outline: none; border-color: var(--green-mid);
+  }
+  .form-group textarea { resize: vertical; height: 90px; }
+  .form-submit {
+    width: 100%; background: var(--green-dark); color: white; border: none;
+    padding: 13px; border-radius: 6px; font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .form-submit:hover { background: var(--green-mid); }
+
+  /* FOOTER */
+  footer {
+    background: #1a1a18; color: rgba(255,255,255,0.7);
+    padding: 48px 48px 24px;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+  .footer-brand p { font-size: 13px; line-height: 1.7; margin-top: 12px; max-width: 280px; }
+  .footer-col h4 { font-size: 13px; font-weight: 700; color: white; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; margin-bottom: 8px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--green-accent); }
+  .footer-logo { display: flex; align-items: center; gap: 10px; }
+  .footer-logo-box { width: 38px; height: 38px; background: var(--green-dark); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+  .footer-logo-box svg { width: 20px; height: 20px; fill: white; }
+  .footer-logo-text span { font-size: 17px; font-weight: 800; color: white; letter-spacing: 1px; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; }
+  .footer-bottom p { font-size: 12px; }
+  .footer-phone { color: var(--green-accent); font-weight: 600; font-size: 14px; }
+
+  /* WEBCHAT BUTTON */
+  #webchat-btn {
+    position: fixed; bottom: 28px; right: 28px; z-index: 999;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--green-dark); border: none; cursor: pointer;
+    box-shadow: 0 4px 20px rgba(15,110,86,0.45);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  #webchat-btn:hover { background: var(--green-mid); transform: scale(1.07); }
+  #webchat-btn svg { width: 28px; height: 28px; fill: white; }
+  #webchat-badge {
+    position: absolute; top: -4px; right: -4px;
+    width: 18px; height: 18px; background: var(--orange);
+    border-radius: 50%; border: 2px solid white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: white;
+  }
+  .webchat-tooltip {
+    position: fixed; bottom: 98px; right: 28px; z-index: 999;
+    background: var(--gray-dark); color: white;
+    padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  }
+  #webchat-btn:hover + .webchat-tooltip,
+  .webchat-tooltip:hover { opacity: 1; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 48px 20px; flex-direction: column; }
+    .hero h1 { font-size: 30px; }
+    .section { padding: 48px 20px; }
+    .marcas-grid, .stats-grid, .contact-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .brands { padding: 20px; }
+    .app-section { padding: 48px 20px; }
+    .contact-section { padding: 48px 20px; }
+    footer { padding: 40px 20px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8 2 4 5 4 9c0 5 8 13 8 13s8-8 8-13c0-4-4-7-8-7zm0 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+    </div>
+    <div class="nav-brand">
+      <span>PASA / GEN</span>
+      <span>Promotora Ambiental</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Inicio</a></li>
+    <li><a href="#">Nosotros</a></li>
+    <li><a href="#">PASA</a></li>
+    <li><a href="#">GEN</a></li>
+    <li><a href="#">Sucursales</a></li>
+  </ul>
+  <a class="nav-cta" href="#">Contratar servicio</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Promotora Ambiental · México</div>
+    <h1>Brindamos <span>Soluciones Ambientales</span> Integrales</h1>
+    <p>Somos especialistas en la recolección, manejo y disposición correcta de residuos a nivel industrial, comercial y municipal en todo México.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#">Cotizar servicio</a>
+      <a class="btn-outline" href="#">Conocer más</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-stat"><div class="num">+40K</div><div class="lbl">Clientes activos</div></div>
+    <div class="hero-stat"><div class="num">30+</div><div class="lbl">Años de experiencia</div></div>
+    <div class="hero-stat"><div class="num">100%</div><div class="lbl">Cumplimiento normativo</div></div>
+    <div class="hero-stat"><div class="num">2</div><div class="lbl">Marcas especializadas</div></div>
+  </div>
+</section>
+
+<!-- BRANDS STRIP -->
+<div class="brands">
+  <span class="brands-label">Nuestras marcas</span>
+  <span class="brand-pill">PASA</span>
+  <span class="brand-pill">GEN</span>
+  <span class="brand-pill">EMG</span>
+  <span class="brand-pill">RABSA</span>
+</div>
+
+<!-- SERVICES -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-tag">Especialidades ambientales</div>
+    <h2>Nuestros <span>servicios</span></h2>
+    <p class="section-sub">Ofrecemos soluciones para la recolección, manejo y disposición final de residuos a nivel industrial, comercial y municipal.</p>
+  </div>
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M8 6V4h8v2"/></svg>
+      </div>
+      <h3>Residuos Industriales y Comerciales</h3>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <h3>Residuos Peligrosos</h3>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+      </div>
+      <h3>Destrucción Fiscal y de Marca</h3>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Zero Waste</h3>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 10 10H2A10 10 0 0 1 12 2z"/><path d="M2 12a10 10 0 0 0 20 0"/><path d="M12 2v20"/></svg>
+      </div>
+      <h3>Residuos Orgánicos</h3>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/><path d="M7 12s1.5-4 5-4 5 4 5 4-1.5 4-5 4-5-4-5-4z"/></svg>
+      </div>
+      <h3>Tratamiento de Agua Residual</h3>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <h3>Mejoramiento de Suelos</h3>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+      </div>
+      <h3>Manejo de Escombros</h3>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      </div>
+      <h3>Reciclaje</h3>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <h3>Recolección de Aceite</h3>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <h3>Nearshoring</h3>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+      </div>
+      <h3>Tratamiento de Lodos</h3>
+    </div>
+
+  </div>
+</section>
+
+<!-- MARCAS -->
+<section class="section marcas-section">
+  <div class="section-header">
+    <div class="section-tag">Nuestras marcas</div>
+    <h2>Dos marcas, <span>una misión</span></h2>
+    <p class="section-sub">Brindamos servicios especializados a través de marcas con experiencia y presencia nacional.</p>
+  </div>
+  <div class="marcas-grid">
+    <div class="marca-card">
+      <div class="marca-badge">GEN</div>
+      <h3>Gestión Especializada de Residuos</h3>
+      <p>Empresa líder en el manejo de residuos industriales y comerciales. Contamos con tecnología de vanguardia y una extensa flota operativa en zonas manufactureras.</p>
+      <a class="marca-link" href="#">Ver servicios GEN →</a>
+    </div>
+    <div class="marca-card">
+      <div class="marca-badge">PASA</div>
+      <h3>Recolección de Residuos Domiciliarios</h3>
+      <p>Empresa dedicada al servicio de recolección de residuos domiciliarios, con presencia en los principales municipios del país y más de 40,000 clientes satisfechos.</p>
+      <a class="marca-link" href="#">Ver servicios PASA →</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="section-header">
+    <div class="section-tag" style="color: var(--green-accent);">Impacto ambiental</div>
+    <h2 style="color: white;">Números que <span style="color: var(--green-accent);">importan</span></h2>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-item"><div class="big">+40K</div><div class="desc">Clientes que confían en nosotros</div></div>
+    <div class="stat-item"><div class="big">30+</div><div class="desc">Años de experiencia en el sector</div></div>
+    <div class="stat-item"><div class="big">100%</div><div class="desc">Cumplimiento con NOM y regulaciones</div></div>
+    <div class="stat-item"><div class="big">24/7</div><div class="desc">Atención y seguimiento de servicios</div></div>
+  </div>
+</section>
+
+<!-- APP -->
+<section class="app-section">
+  <div class="app-content">
+    <h2>Agenda tu servicio con <span>GEN Express</span></h2>
+    <p>Ponemos a tu disposición nuestra app para iOS y Android. Contrata, administra y da seguimiento a tus servicios de recolección desde tu celular.</p>
+    <ul class="app-features">
+      <li>Contratación de servicios inmediata</li>
+      <li>Administración del historial de servicios</li>
+      <li>Seguimiento en tiempo real de solicitudes</li>
+      <li>Pagos y facturación desde la app</li>
+    </ul>
+    <div class="app-badges">
+      <a class="app-badge" href="#">▶ Google Play</a>
+      <a class="app-badge" href="#">🍎 App Store</a>
+    </div>
+  </div>
+  <div class="app-phone">
+    <div class="app-phone-inner">
+      <div class="app-logo">♻️</div>
+      <span>GEN Express</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section">
+  <div class="section-header">
+    <div class="section-tag">Contacto</div>
+    <h2>¿Cómo podemos <span>ayudarte?</span></h2>
+    <p class="section-sub">Estamos a tus órdenes para informarte sobre nuestros servicios, cotizaciones y atención al cliente.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h2>Información de contacto</h2>
+      <p>Comunícate con nosotros por el canal que prefieras. Nuestro equipo de asesores está listo para atenderte.</p>
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.87a16 16 0 0 0 6.08 6.08l1.94-1.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="contact-item-text">
+          <p>Teléfono</p>
+          <p>81 1966 7900</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="contact-item-text">
+          <p>Correo electrónico</p>
+          <p>contacto@pasa.mx</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="contact-item-text">
+          <p>Oficina central</p>
+          <p>Antonio L. Rodríguez 2100 Pte. Piso 21, Monterrey N.L.</p>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-group">
+        <label>Nombre completo</label>
+        <input type="text" placeholder="Tu nombre">
+      </div>
+      <div class="form-group">
+        <label>Empresa</label>
+        <input type="text" placeholder="Nombre de tu empresa">
+      </div>
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input type="email" placeholder="correo@empresa.com">
+      </div>
+      <div class="form-group">
+        <label>Servicio de interés</label>
+        <select>
+          <option value="">Selecciona un servicio...</option>
+          <option>Residuos Industriales y Comerciales</option>
+          <option>Residuos Peligrosos</option>
+          <option>Destrucción Fiscal y de Marca</option>
+          <option>Zero Waste</option>
+          <option>Reciclaje</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Mensaje</label>
+        <textarea placeholder="Cuéntanos sobre tu necesidad..."></textarea>
+      </div>
+      <button class="form-submit">Enviar solicitud</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-logo-box">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8 2 4 5 4 9c0 5 8 13 8 13s8-8 8-13c0-4-4-7-8-7zm0 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+        </div>
+        <div class="footer-logo-text"><span>PASA / GEN</span></div>
+      </div>
+      <p>Promotora Ambiental S.A.B. de C.V. — Empresa especializada en brindar servicios a través de la correcta recolección, manejo y disposición de residuos en México.</p>
+      <p class="footer-phone" style="margin-top:12px;">81 1966 7900</p>
+    </div>
+    <div class="footer-col">
+      <h4>Servicios</h4>
+      <a href="#">Residuos Industriales</a>
+      <a href="#">Residuos Peligrosos</a>
+      <a href="#">Destrucción Fiscal</a>
+      <a href="#">Zero Waste</a>
+      <a href="#">Reciclaje</a>
+      <a href="#">Nearshoring</a>
+    </div>
+    <div class="footer-col">
+      <h4>Empresa</h4>
+      <a href="#">Nosotros</a>
+      <a href="#">Responsabilidad Social</a>
+      <a href="#">Inversionistas</a>
+      <a href="#">Sucursales</a>
+      <a href="#">Aviso de privacidad</a>
+      <a href="#">Código de Ética</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Promotora Ambiental S.A.B. de C.V. Todos los derechos reservados.</p>
+    <p>contacto@pasa.mx</p>
+  </div>
+</footer>
+
+<!-- WEBCHAT BUTTON (Voximplant Kit - pendiente integración) -->
+<button id="webchat-btn" onclick="initWebChat()" title="Chatea con un asesor">
+  <div id="webchat-badge">1</div>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</button>
+<div class="webchat-tooltip">💬 Chatea con un asesor</div>
+
+<script>
+  function initWebChat() {
+    // ── Integración Voximplant Kit ──────────────────────────────
+    // Aquí va el código de inicialización del widget de VoxImplant Kit
+    // Ejemplo:
+    // VoxKitWidget.init({ accountId: 'YOUR_ACCOUNT_ID', ... });
+    // VoxKitWidget.open();
+    // ────────────────────────────────────────────────────────────
+    console.log('[WebChat] Iniciando Voximplant Kit widget...');
+    alert('WebChat: Aquí se inicializará el widget de Voximplant Kit.');
+  }
+
+  document.getElementById('webchat-btn').addEventListener('mouseenter', function() {
+    document.querySelector('.webchat-tooltip').style.opacity = '1';
+  });
+  document.getElementById('webchat-btn').addEventListener('mouseleave', function() {
+    document.querySelector('.webchat-tooltip').style.opacity = '0';
+  });
+</script>
+
+</body>
+</html>
